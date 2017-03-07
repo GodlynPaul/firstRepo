@@ -1,0 +1,13 @@
+<div>
+	<h3>Loaded from view2 Filter enabled</h3>
+	<ul>
+		<li ng-repeat="rcus in rCustomers|filter:rInCity">
+			{{rcus.name}}-{{rcus.city}}
+		</li>
+	</ul>
+	</br>
+	City:<input type="text" ng-model="rInCity">
+</div>
+
+
+

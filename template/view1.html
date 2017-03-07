@@ -1,0 +1,10 @@
+<div>
+	<h3>Loaded from view1 Add Customers</h3>
+	<ul>
+		<li ng-repeat="rcus in rCustomers">{{rcus.name}} -- {{rcus.city}}</li>
+	</ul>
+	<br>
+	Name:<input type="text" ng-model="newCustomer.rInName"></br>
+	City:<input type="text" ng-model="newCustomer.rInCity"></br>	
+	<button ng-click="addCustomer()"> ADD CUSTOMER</button>
+</div>

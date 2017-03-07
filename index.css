@@ -1,0 +1,15 @@
+.myTab{
+	border: 1px solid red;
+    border-collapse: collapse;
+    min-width: 100px;
+}
+.giveBorderRed{
+	border: 1px solid red;
+}
+.giveBoldness{
+	font-size: 20px;
+}
+
+.play-with-cusDir{
+		border: 1px solid red;
+}

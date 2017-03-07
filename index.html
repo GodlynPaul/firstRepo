@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Godlyn Paul</title>
+	<base href="/" />
+	<script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
+	<script type="text/javascript" src="bower_components/angular-route/angular-route.min.js"></script>
+	<script type="text/javascript" type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+	<script src="http://code.jquery.com/ui/1.12.1/jquery-ui.min.js"   integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="   crossorigin="anonymous"></script>
+	<script type="text/javascript" src="scriptFile.js"></script>
+	<link rel="stylesheet" type="text/css" href="index.css">
+
+
+
+</head>
+<body ng-app="myApp">
+	<div ng-controller="anchorScroll">
+		<input id="top" type="button" value="JUMP AHEAD" ng-click="scrollTo('bottom')">
+		<div ng-controller="SimpleController">
+			<span>Simple List</span>
+			<ul>
+				<li ng-repeat="name in namesList">{{name|uppercase}}</li>
+			</ul>
+			<hr>
+
+			<span>Name:</span>
+			<input type="text" ng-model="namefilter">
+			<span>{{namefilter}}</span>
+			<ol>
+				<li ng-repeat="udl in userDataList|filter:namefilter|orderBy:'name'">
+					{{udl.name}}-{{udl.city|lowercase}}
+				</li>
+			</ol>
+		</div>
+		<hr>
+		<div ng-controller="SimpleController">
+			<span>Simple Object</span>
+			<input type="text" ng-model="SOfilter">
+			<ul>
+				<li ng-repeat="cus in customers|filter:SOfilter|orderBy:'name'">
+					{{cus.name}}-{{cus.city}}
+				</li>
+			</ul>
+			<hr>
+			<span>Nested ng-repeat</span>
+			<ul>
+				<li ng-repeat="state in states">
+				{{$index}} - {{state.name}}
+					<ul>
+						<li ng-repeat="city in state.cities">
+							{{$parent.$index}}.{{$index}} - {{city.name}}
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+
+		<div ng-controller="eventController">
+			<span>Event ng-Click</span>
+			<table border="1px solid black" border-collapse="collapse">
+				<tr><th>Technology</th><th>Likes</th><th>Dislikes</th><th colspan=2>Update</th></tr>
+				<tr ng-repeat="tech in technologies">
+					<td>{{tech.name}}</td>
+					<td>{{tech.like}}</td>
+					<td>{{tech.dislike}}</td>
+					<td>
+						<input type="button" value="LIKE" ng-click="incTechLike(tech)"/>
+						<input type="button" value="DISLIKE" ng-click="incTechDisLike(tech)"/>
+						<input type="button" value="UNDO LIKE" ng-click="undoLike(tech)"/>
+					</td>
+				</tr>
+			</table>
+			<input type="button" value="CLEAR ALL" ng-click="clearAllLikes(technologies)">
+		</div>
+		<hr>
+
+		<div ng-controller="multiplefilter">
+			<span>Content Search</span>
+			<input type="text" ng-model="srcTxt" placeholder="Employee Name"></br></br>
+			<table style="border:1px solid black">
+				<thead>
+				<tr><th>FName</th><th>Lname</th><th>ID</th><th>Email</th></tr>
+				<tr>
+					<th><input type="text" ng-model="srcTxt.firstname" placeholder="Search FName"></th>
+					<th><input type="text" ng-model="srcTxt.lastname" placeholder="Search LName"></th>
+					<th><input type="text" ng-model="srcTxt.id" placeholder="Search ID"></th>
+					<th><input type="text" ng-model="srcTxt.email" placeholder="Search EmailID"></th>
+				</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="employee in employees|filter:srcTxt ">
+						<td>{{employee.firstname}}</td>
+						<td>{{employee.lastname}}</td>
+						<td>{{employee.id}}</td>
+						<td>{{employee.email}}</td>
+					</tr>
+				</tbody>
+			</table>
+			<hr>
+			<input type="checkbox" ng-model="hideSalary">Hide Salary
+			<input type="checkbox" ng-model="showName">Show name</br></br>
+			<table style="border:1px solid black">
+				<thead>
+				<tr><th ng-show="showName">Name</th><th>Gender</th><th ng-hide="hideSalary">Salary</th><th>DOB</th></tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="employee in employees2">
+						<td ng-show="showName">{{employee.name}}</td>
+						<td>{{employee.gender | genderFilter}}</td>
+						<td ng-hide="hideSalary">{{employee.salary}}</td>
+						<td>{{employee.dob|date:"dd-MMM-yyyy"}}</td>
+					</tr>
+				</tbody>
+			</table>
+			<hr>
+			<div ng-include="'godlynpaul.html'"> </div>
+			</div>
+
+			<div ng-controller="perSalary">
+				<table style="border:1px solid black">
+					<thead>
+						<tr><th>Name</th><th>Percentage</th></tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="employee in employees4">
+							<td>{{employee.name}}</td>
+							<td>{{employee.salary}} %</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<hr>
+			<input id="bottom" type="button" value="JUMP BACK" ng-click="scrollTo('top')">
+			<hr>
+			<div id="anc{{x}}" ng-repeat="x in [1,2]" style="height:50px; border:1px solid;"> Hello Anchor {{x}} of 5</div>
+			<hr>
+		<!--
+	<span>Router Provider</span>
+			<ol>
+				<li><a href="view1">View1 HTML5Mode</a></li>
+				<li><a href="view2">View2 HTML5Mode</a></li>
+				<li><a href="view3">View3 HTML5Mode</a></li>
+				<li><a href="view4/12/Jan/2015">View4 HTML5Mode</a></li>
+<!~~			<li><a href="#!/view1">View1 HashBangMode</a></li>
+				<li><a href="#!/view2">View2 HashBangMode</a></li>
+				<li><a href="#!/view3">View3 HashBangMode</a></li>
+				<li><a href="#!/view4/12/Jan/2015">View4 HashBangMode</a></li>		~~>
+			</ol>
+			<div ng-view><!~~View will be rendered over here~~></div>
+			<hr>
+ -->
+			<div ng-controller="FacProSer">
+				<span>Factory Provider and Service </span>
+			</div>
+			<br/>
+			<div ng-controller="AppBind">
+				<span>APPLY DIGEST </span>
+				<input ng-model="messageSetTimeOut">
+				<input type="button" value="CLICK AND CHECK CONSOLE" ng-click="getMessage()">
+			</div>
+			<div ng-controller="AppBind">
+				<span>APPLY DIGEST </span>
+				<input ng-model="messageSetTimeOut2">
+				<input type="button" value="CLICK AND CHECK CONSOLE" ng-click="getMessage()">
+				<br><br>
+				<!-- <div ng-class="giveBorderRed:true; giveBorderGreen:false">
+						Usage of ng-class
+				</div> -->
+				<div ng-class="{giveBorderRed:showBorderFlag, giveBoldness:makeBoldFlag,}" ng-if="true">
+						Usage of ng-class and ng-if
+				</div>
+				<div ng-show="false">
+						Usage of ng-show
+				</div>
+
+
+			</div>
+			<hr>
+			<div ng-controller="noScopeTry as noScopeTryExp">
+				{{noScopeTryExp.nameToDisp}}<br>{{nameToDisp}}
+			</div>
+			<hr>
+			<div ng-controller="promiseTrail">
+<!--			<div>
+					Result:{{dataOnUi}}
+					<p ng-show="totalTime"> Time:{{totalTime}}<p> </div> -->
+				<div>
+					Result:{{dataOnUi2}}
+					<p ng-show="totalTime2"> Time:{{totalTime2}}<p>
+				</div>
+			</div>
+
+			<div ng-controller="cusDirController">
+				<cus-emp-animal-table list="animals" allow-higlight="true"><div>Animal in HTML1</div><div>Animal in HTML2</div><div>Animal in HTML3</div></cus-emp-animal-table>
+				<cus-emp-animal-table list="employees" allow-display=true><div>Employee in HTML1</div><div>Employee in HTML2</div><div>Employee in HTML3</div></cus-emp-animal-table>
+			</div>
+			<my-first-component>
+					DumDumDum
+					<div>good good
+					</div>
+					<set-apple> Apple </set-apple>
+					<set-banana> Banana </set-banana>
+					<set-chikoo> Chikoo </set-chikoo>
+					<div>Awesome Awesome</div>
+			</my-first-component>
+
+			<try-comp text="--N1"> H1
+				<try-comp text="----N2"> H2
+					<try-comp text="------N3"> H3
+					</try-comp>
+				</try-comp>
+			</try-comp>
+			<div try-comp text="firstH2">	H2 </div>
+
+			<div class="play-with-cusDir" ng-repeat=" i in [1,2,3,4,5]">
+				<try-comp text="GC {{i}}"> {{i}}
+				</try-comp>
+			</div>
+
+		</div>
+	</body>
+</html>
